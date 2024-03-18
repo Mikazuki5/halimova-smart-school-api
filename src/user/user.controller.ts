@@ -1,12 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDTO } from './dto/registerUser-dto';
-import { BaseResponse } from './interface/BaseResponse';
+import { BaseResponse } from '../common/interface/BaseResponse';
 import { LoginDTO } from './dto/login-dto';
+import { ResponseInterceptor } from 'src/common/Interceptor/Response-interceptor';
 
 @Controller('user')
+@UseInterceptors(ResponseInterceptor)
 export class UserController {
   constructor(private userService: UserService) {}
+
   @Post('/register')
   async registerAccount(@Body() registerUser: RegisterUserDTO): Promise<
     BaseResponse<{

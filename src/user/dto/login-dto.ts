@@ -6,7 +6,7 @@ export class LoginDTO {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Password is Required' })
   @MinLength(6)
   @IsString()
   password: string;
